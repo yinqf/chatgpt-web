@@ -17,8 +17,6 @@ const props = defineProps<Props>()
 
 const emit = defineEmits<Emit>()
 
-const authStore = useAuthStore()
-
 const active = ref('General')
 
 const show = computed({
