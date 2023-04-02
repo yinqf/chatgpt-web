@@ -29,6 +29,11 @@ export function fetchChatAPIProcess<T = any>(
 ) {
   const settingStore = useSettingStore()
 
+	// base64编码
+	const encoder: TextEncoder = new TextEncoder()
+	const data: Uint8Array = encoder.encode(params.prompt)
+	params.prompt = btoa(String.fromCharCode(...data))
+
   return post<T>({
     url: '/chat-process',
     data: { prompt: params.prompt, options: params.options, systemMessage: settingStore.systemMessage },

@@ -122,7 +122,10 @@ async function onConversation() {
           if (lastIndex !== -1)
             chunk = responseText.substring(lastIndex)
           try {
-            const data = JSON.parse(chunk)
+						if (!chunk.includes('{'))
+							chunk = decodeURIComponent(escape(atob(chunk)))
+
+						const data = JSON.parse(chunk)
             updateChat(
               +uuid,
               dataSources.value.length - 1,
@@ -253,7 +256,10 @@ async function onRegenerate(index: number) {
           if (lastIndex !== -1)
             chunk = responseText.substring(lastIndex)
           try {
-            const data = JSON.parse(chunk)
+						if (!chunk.includes('{'))
+							chunk = decodeURIComponent(escape(atob(chunk)))
+
+						const data = JSON.parse(chunk)
             updateChat(
               +uuid,
               index,
