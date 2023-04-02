@@ -35,10 +35,6 @@ function onScrollToTop() {
 function handleExport() {
   emit('export')
 }
-
-function toggleUsingContext() {
-  emit('toggleUsingContext')
-}
 </script>
 
 <template>
