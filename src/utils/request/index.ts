@@ -48,7 +48,7 @@ function http<T = any>(
   const params = Object.assign(typeof data === 'function' ? data() : data ?? {}, {})
 
   headers = headers || {}
-  //headers.access_token = '1646457511667728386'
+  // headers.access_token = '1646457511667728386'
 
   return method === 'GET'
     ? request.get(url, { params, signal, onDownloadProgress }).then(successHandler, failHandler)
