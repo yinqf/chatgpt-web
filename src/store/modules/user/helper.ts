@@ -6,6 +6,8 @@ export interface UserInfo {
   avatar: string
   name: string
   description: string
+  showLogin: boolean
+  accessToken: string
 }
 
 export interface UserState {
@@ -18,6 +20,8 @@ export function defaultSetting(): UserState {
       avatar: 'https://raw.githubusercontent.com/Chanzhaoyu/chatgpt-web/main/src/assets/avatar.jpg',
       name: 'AICORE',
       description: 'ai聊天机器人',
+      showLogin: false,
+      accessToken: '',
     },
   }
 }

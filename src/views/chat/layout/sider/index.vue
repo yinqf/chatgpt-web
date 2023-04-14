@@ -4,10 +4,10 @@ import { computed, ref, watch } from 'vue'
 import { NButton, NLayoutSider } from 'naive-ui'
 import List from './List.vue'
 import Footer from './Footer.vue'
-import { useAppStore, useChatStore } from '@/store'
+import { useAppStore, useChatStore, useUserStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { PromptStore } from '@/components/common'
-
+const userStore = useUserStore()
 const appStore = useAppStore()
 const chatStore = useChatStore()
 
@@ -16,10 +16,16 @@ const show = ref(false)
 
 const collapsed = computed(() => appStore.siderCollapsed)
 
+const accessToken = computed(() => userStore.userInfo.accessToken)
+
 function handleAdd() {
   chatStore.addHistory({ title: 'New Chat', uuid: Date.now(), isEdit: false })
   if (isMobile.value)
     appStore.setSiderCollapsed(true)
+}
+
+function showLogin() {
+  userStore.updateUserInfo({ showLogin: true })
 }
 
 function handleUpdateCollapsed() {
@@ -79,6 +85,11 @@ watch(
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
           <List />
         </div>
+        <div v-if="!accessToken" class="loginBox">
+          <NButton class="btn" type="primary" @click="showLogin">
+            登录 / 注册
+          </NButton>
+        </div>
         <div class="p-4">
           <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
@@ -93,3 +104,16 @@ watch(
   </template>
   <PromptStore v-model:visible="show" />
 </template>
+
+<style lang="less" scoped>
+  .loginBox{
+      padding: 0 1rem 0 1rem;
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: space-between;
+      .btn{
+          width: 100%;
+      }
+  }
+</style>

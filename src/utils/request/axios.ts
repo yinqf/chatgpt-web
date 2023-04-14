@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from 'axios'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useUserStore } from '@/store'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_GLOB_API_URL,
@@ -10,6 +10,9 @@ service.interceptors.request.use(
     const token = useAuthStore().token
     if (token)
       config.headers.Authorization = `Bearer ${token}`
+    const accessToken = useUserStore().userInfo.accessToken
+    if (accessToken)
+      config.headers.access_token = `${accessToken}`
     return config
   },
   (error) => {
