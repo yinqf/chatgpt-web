@@ -74,10 +74,8 @@ function LoginHandle() {
     })
   }
   catch (error) {
-    ms.error(error.message ?? 'error')
-  }
-  finally {
     loading.value = false
+    ms.error(error.message ?? 'error')
   }
 }
 
